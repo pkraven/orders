@@ -7,8 +7,15 @@ import pandas
 from pandas.core.frame import DataFrame
 from pandas.errors import EmptyDataError
 
-import calculations
-from enums import Mapping
+from orders.calculations import (
+    get_sum_profit,
+    get_count_sales_by_products,
+    get_best_products,
+    get_average_time,
+    get_standard_deviation_time,
+    get_worst_products
+)
+from orders.enums import Mapping
 
 RESULT_FILE_NAME = "result.csv"
 
@@ -43,13 +50,13 @@ def main():
     if frame is None:
         return
 
-    sum_profit = calculations.get_sum_profit(frame)
-    best_products = calculations.get_best_products(frame, 5)
-    worst_products = calculations.get_worst_products(frame, 5)
-    average_time = calculations.get_average_time(frame)
-    deviation_time = calculations.get_standard_deviation_time(frame)
+    sum_profit = get_sum_profit(frame)
+    best_products = get_best_products(frame, 5)
+    worst_products = get_worst_products(frame, 5)
+    average_time = get_average_time(frame)
+    deviation_time = get_standard_deviation_time(frame)
 
-    save_frame(calculations.get_count_sales_by_products(frame), path_result_file)
+    save_frame(get_count_sales_by_products(frame), path_result_file)
 
     out = f"1. Посчитать общий профит с точностью до цента: \n{sum_profit}  \n\n\n" \
           "2. Найти самые лучшие продукты по продажам, по количеству продаж и по профиту соответственно: \n" \
@@ -64,7 +71,3 @@ def main():
           f"5. Найти стандартное отклонение от среднего срока доставки товара клиенту: \n{deviation_time} \n\n\n" \
 
     print(out)
-
-
-if __name__ == "__main__":
-    main()

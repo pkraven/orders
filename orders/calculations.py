@@ -1,6 +1,6 @@
 from pandas.core.frame import DataFrame
 
-from enums import Mapping
+from orders.enums import Mapping
 
 
 def get_sum_profit(frame: DataFrame) -> float:
